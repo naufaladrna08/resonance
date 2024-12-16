@@ -16,7 +16,7 @@ void MainWindow::init() {
   ImGui_ImplGlfw_InitForOpenGL(m_window, true);
   ImGui_ImplOpenGL3_Init("#version 330");
 
-  ImGui::StyleColorsDark();
+  ImGui::StyleColorsLight();
 
   // ImGui Flags
   ImGuiIO& io = ImGui::GetIO();
@@ -80,7 +80,7 @@ void MainWindow::init() {
 
   ImGuiStyle& style = ImGui::GetStyle();
   style.WindowPadding                     = ImVec2(8.00f, 8.00f);
-  style.FramePadding                      = ImVec2(5.00f, 2.00f);
+  style.FramePadding                      = ImVec2(4.00f, 8.00f);
   style.CellPadding                       = ImVec2(6.00f, 6.00f);
   style.ItemSpacing                       = ImVec2(6.00f, 6.00f);
   style.ItemInnerSpacing                  = ImVec2(6.00f, 6.00f);
@@ -137,7 +137,7 @@ void MainWindow::render() {
   ImGui::NewFrame();
 
   ImGuiViewport* viewport = ImGui::GetMainViewport();
-  ImGui::SetNextWindowPos({viewport->Pos.x, 50 + 32});
+  ImGui::SetNextWindowPos({viewport->Pos.x, 50 + 72});
   ImGui::SetNextWindowSize(viewport->Size);
   ImGui::SetNextWindowViewport(viewport->ID);
   ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
@@ -147,8 +147,8 @@ void MainWindow::render() {
 
   ImGui::Begin("DockSpace", nullptr, 
     ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | 
-    ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | 
-    ImGuiWindowFlags_MenuBar);
+    ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings 
+  );
     createMenu();
     ImGui::PopStyleVar(4);
 
@@ -215,11 +215,11 @@ void MainWindow::NodeEditorShutdown() {
 void MainWindow::createMenu() {
   ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(4, 12));
   ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(8, 8));
-  ImGui::PushStyleColor(ImGuiCol_MenuBarColor1, ImVec4(0.133f, 0.133f, 0.133f, 1.0f));
-  ImGui::PushStyleColor(ImGuiCol_MenuBarColor2, ImVec4(0.318f, 0.200f, 0.200f, 1.0f));
-  ImGui::ShowDemoWindow();
+  ImGui::PushStyleColor(ImGuiCol_MenuBarBgColor1, ImVec4(0.133f, 0.133f, 0.133f, 1.0f));
+  ImGui::PushStyleColor(ImGuiCol_MenuBarBgColor2, ImVec4(0.318f, 0.200f, 0.200f, 1.0f));
+
   // Begin the menu bar
-  if (ImGui::BeginMainMenuBar()) {
+  if (ImGui::BeginMainMenuBar(true)) {
     drawTitle();
 
     if (ImGui::BeginMenu("File")) {
@@ -275,6 +275,13 @@ void MainWindow::createMenu() {
 
 void MainWindow::drawTitle() {
   ImGui::Spacing();
+  ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 2);
+  ImGui::PushFont(m_fonts[2]);
+  ImGui::Text(ICON_LC_MUSIC);
+  ImGui::PopFont();
+  ImGui::Spacing();
+
+  ImGui::SetCursorPosY(ImGui::GetCursorPosY());
   ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[1]);
   ImGui::Text("Resonance");
   ImGui::PopFont();
