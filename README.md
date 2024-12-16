@@ -1,4 +1,4 @@
-# DAWgong
+# Resonance
 
 Resonance is a lightweight Digital Audio Workstation (DAW) designed for simplicity and efficiency in audio recording and editing tasks. Built with a focus on essential features, this DAW provides a streamlined workflow without overwhelming users with unnecessary complexity. 
 
