@@ -13,6 +13,14 @@ class Toolbar {
     void render();
 
   private:
+    const ImGuiWindowFlags m_windowFlags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar;
+    
+    // Parts
+    void createProjectMenu();
+    void createPlaybackMenu();
+    void createTimeBar();
+    
+    // Helpers
     void createButton(
       const char* icon, 
       const char* label, 
@@ -22,7 +30,6 @@ class Toolbar {
       ImVec2 customSize = ImVec2(0, 0),
       ImVec4 customColor = ImVec4(0, 0, 0, 0)
     );
-    void createTimeBar();
 };
 
 #endif

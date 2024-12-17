@@ -137,7 +137,7 @@ void MainWindow::render() {
   ImGui::NewFrame();
 
   ImGuiViewport* viewport = ImGui::GetMainViewport();
-  ImGui::SetNextWindowPos({viewport->Pos.x, 50 + 72});
+  ImGui::SetNextWindowPos({viewport->Pos.x, viewport->Pos.y + 24});
   ImGui::SetNextWindowSize(viewport->Size);
   ImGui::SetNextWindowViewport(viewport->ID);
   ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
@@ -145,15 +145,16 @@ void MainWindow::render() {
   ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
   ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-  ImGui::Begin("DockSpace", nullptr, 
-    ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | 
-    ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings 
-  );
-    createMenu();
+  ImGuiWindowFlags dockspaceFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+  dockspaceFlags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+  dockspaceFlags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+
+  ImGui::Begin("DockSpace", nullptr, dockspaceFlags);
     ImGui::PopStyleVar(4);
 
     ImGuiID dockspace_id = ImGui::GetID("MyDockspace");
     ImGui::DockSpace(dockspace_id, ImVec2(0, 0), ImGuiDockNodeFlags_PassthruCentralNode);
+    createMenu();
 
     ImGui::PushFont(m_fonts[2]);
     m_toolbar->render();
@@ -269,8 +270,8 @@ void MainWindow::createMenu() {
     ImGui::EndMainMenuBar();
   }
 
-  ImGui::PopStyleVar(2);
   ImGui::PopStyleColor(2);
+  ImGui::PopStyleVar(2);
 }
 
 void MainWindow::drawTitle() {
