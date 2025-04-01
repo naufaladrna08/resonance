@@ -1,4 +1,4 @@
-#include <Callbacks/Passthrough.h>
+#include <callbacks/passthrough.h>
 
 void Passthrough::process(jack_nframes_t nframes, void* arg) {
   std::cout << "Passthrough callback" << std::endl;

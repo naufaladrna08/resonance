@@ -1,14 +1,17 @@
-#include <GLFW/glfw3.h>
-#include <Application.h>
+#include <application.h>
+#include <stdexcept>
 
 int main(int argc, char** argv) {
-  if (!glfwInit()) {
+  try {
+    Application app;
+    app.run();
+  } catch (const std::exception& e) {
+    std::cerr << "Exception: " << e.what() << std::endl;
+    return -1;
+  } catch (...) {
+    std::cerr << "Unknown exception occurred" << std::endl;
     return -1;
   }
 
-  Application app;
-  app.run();
-
-  glfwTerminate();
   return 0;
 }

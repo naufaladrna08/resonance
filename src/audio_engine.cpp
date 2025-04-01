@@ -1,4 +1,4 @@
-#include "AudioEngine.h"
+#include "audio_engine.h"
 #include <iostream>
 
 AudioEngine::AudioEngine() {
@@ -27,4 +27,29 @@ void AudioEngine::start() {
 
 void AudioEngine::stop() {
   jack_deactivate(m_client);
+}
+
+std::vector<std::string> AudioEngine::queryBufferSizes() {
+  std::vector<std::string> bufferSizes;
+  for (int i = 1; i <= 2048; i *= 2) {
+    bufferSizes.push_back(std::to_string(i));
+  }
+
+  return bufferSizes;
+}
+
+std::vector<std::string> AudioEngine::querySampleRates() {
+  std::vector<std::string> sampleRates;
+  for (int i = 44100; i <= 192000; i += 1000) {
+    sampleRates.push_back(std::to_string(i));
+  }
+  return sampleRates;
+}
+
+void AudioEngine::setBufferSize(int size) {
+  m_bufferSize = size;
+}
+
+void AudioEngine::setSampleRate(int rate) {
+  m_sampleRate = rate;
 }

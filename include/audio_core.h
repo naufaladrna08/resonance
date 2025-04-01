@@ -1,7 +1,7 @@
 #define AUDIOCORE_H
 #define AUDIOCORE_H
 
-#include <AudioEngine.h>
+#include <audio_engine.h>
 #include <jack/jack.h>
 
 class AudioCore {

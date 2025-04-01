@@ -1,7 +1,7 @@
 #ifndef PASSTHROUGH_H
 #define PASSTHROUGH_H
-#include <AudioEngine.h>
-#include <Callbacks/AudioCallback.h>
+#include <audio_engine.h>
+#include <callbacks/audio_callback.h>
 
 class Passthrough : public AudioCallback {
   public:

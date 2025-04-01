@@ -1,4 +1,4 @@
-#include <Application.h>
+#include <application.h>
 
 Application::Application() {
   this->init();
@@ -9,6 +9,11 @@ Application::~Application() {
 }
 
 void Application::init() {
+  if (!glfwInit()) {
+    std::cerr << "Failed to initialize GLFW" << std::endl;
+    throw std::runtime_error("Failed to initialize GLFW");
+  }
+
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -17,27 +22,29 @@ void Application::init() {
   if (m_window == NULL) {
     std::cerr << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
+    throw std::runtime_error("Failed to create GLFW window");
   }
 
   glfwMakeContextCurrent(m_window);
   glfwSwapInterval(1);
   glfwMaximizeWindow(m_window);
 
-  /* Setup Audio Engine */
-  // m_instance = new AudioEngine();
-  // m_instance->start();
+  /* Setup Main Window */
+  m_mainWindow = new MainWindow(m_window);
 
-  /* Setup Audio Callback */
-  // Passthrough* passthrough = new Passthrough();
-  // m_instance->processCallback(passthrough);
+  /* If the audio engine is hasn't been setup, then we need to open
+   * the startup modal and let the user decide audio configuration */
+  if (m_instance == nullptr) {
+    m_instance = new AudioEngine();
+    m_mainWindow->showStartup(&m_instance);
+  }
 }
 
 void Application::mainLoop() {
-  MainWindow mainWindow(m_window);
   while (!glfwWindowShouldClose(m_window)) {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    mainWindow.render();
+    m_mainWindow->render();
 
     glfwSwapBuffers(m_window);
     glfwPollEvents();

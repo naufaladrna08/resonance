@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 
-#include <AudioCore.h>
+#include <audio_core.h>
 
 class Track {
   public:

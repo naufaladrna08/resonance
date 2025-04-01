@@ -2,13 +2,15 @@
 #define MAINWINDOW_H
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <memory>
+#include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <imgui.h>
-#include <GUI/IconsLucide.h>
+#include <misc/cpp/imgui_stdlib.h>
+#include <ui/icons_lucide.h>
+#include <ui/components/toolbar.h>
 #include <imnodes.h>
-#include <GUI/Components/Toolbar.h>
-#include <memory>
+#include <audio_engine.h>
 
 class MainWindow {
   public:
@@ -17,6 +19,7 @@ class MainWindow {
     
     void render();
     void createMenu();
+    void showStartup(AudioEngine** instance);
 
     void NodeEditorInitialize();
     void NodeEditorShow();
@@ -26,6 +29,7 @@ class MainWindow {
     void init();
     void cleanUp();
 
+    bool m_showStartup = false;
     GLFWwindow* m_window;
     std::unique_ptr<Toolbar> m_toolbar;
     std::vector<ImFont*> m_fonts;
@@ -53,6 +57,10 @@ class MainWindow {
     void drawTitle();
     void drawMode();
     void drawSettingsIconButton();
+
+    // Startup
+    AudioEngine* m_instance = nullptr; 
+    void drawStartup();
 };
 
 #endif

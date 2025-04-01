@@ -23,21 +23,21 @@ include_directories(vendor/imnodes)
 # Add source files
 set(SOURCES
   src/main.cpp
-  src/Application.cpp
-  src/AudioEngine.cpp
-  src/MIDIHandler.cpp
-  src/GUI/MainWindow.cpp
-  src/GUI/Components/Toolbar.cpp
-  src/Callbacks/Passthrough.cpp
+  src/application.cpp
+  src/audio_engine.cpp
+  src/midi_handler.cpp
+  src/ui/main_window.cpp
+  src/ui/components/toolbar.cpp
+  src/callbacks/passthrough.cpp
 )
 
 # Add header files
 set(HEADERS
-  include/Application.h
-  include/AudioEngine.h
-  include/MIDIHandler.h
-  include/GUI/MainWindow.h
-  include/GUI/Components/Toolbar.h
+  include/application.h
+  include/audio_engine.h
+  include/midi_handler.h
+  include/ui/main_window.h
+  include/ui/components/toolbar.h
 )
 
 # Add executable
