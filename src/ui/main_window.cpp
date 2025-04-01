@@ -178,6 +178,7 @@ void MainWindow::render() {
 
     ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
     ImGui::DockSpace(dockspace_id, ImVec2(0, 0), ImGuiDockNodeFlags_PassthruCentralNode);
+    createMenu();
 
     ImGui::PushFont(m_fonts[2]);
     
